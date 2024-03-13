@@ -10,10 +10,18 @@ describe('Game5', function () {
   }
   it('should be a winner', async function () {
     const { game } = await loadFixture(deployContractAndSetVariables);
+    const signer = await ethers.getSigner(0);
 
-    // good luck
+    // Search 0x000 
+    const addressFoundOnEtherscan = "0x00000000005316Fe469550d85f2E5AE85b7db719";
+    const stranger = await ethers.getImpersonatedSigner(addressFoundOnEtherscan);
 
-    await game.win();
+    await signer.sendTransaction({
+      to: addressFoundOnEtherscan,
+      value: ethers.utils.parseEther("1.0")
+    });
+
+    await game.connect(stranger).win();
 
     // leave this assertion as-is
     assert(await game.isWon(), 'You did not win the game');
