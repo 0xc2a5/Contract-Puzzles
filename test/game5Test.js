@@ -12,12 +12,11 @@ describe('Game5', function () {
     const { game } = await loadFixture(deployContractAndSetVariables);
     const signer = await ethers.getSigner(0);
 
-    // Search 0x000 
-    const addressFoundOnEtherscan = "0x00000000005316Fe469550d85f2E5AE85b7db719";
-    const stranger = await ethers.getImpersonatedSigner(addressFoundOnEtherscan);
+    const address = "0x0000000000000000000000000000000000000000";
+    const stranger = await ethers.getImpersonatedSigner(address);
 
     await signer.sendTransaction({
-      to: addressFoundOnEtherscan,
+      to: address,
       value: ethers.utils.parseEther("1.0")
     });
 
